@@ -15,11 +15,11 @@ echo Please enter default Mail adress
 read -p 'E-Mail: ' mail
 echo "Please enter guacamole sub domain (eg: sub.domain.yours)"
 read -p "FQDN:" sub
-sudo echo mail=$mail > .env
-sudo echo PW=$PW >> .env
-sudo echo sub=$sub >> .env
+sudo echo mail=$mail > /docker/config/.env
+sudo echo PW=$PW >> /docker/config/.env
+sudo echo sub=$sub >> /docker/config/.env
 sudo chmod 755 /docker/config/
-
+sudo docker-compose up -d
 
 
 # # guacamoledocker  
