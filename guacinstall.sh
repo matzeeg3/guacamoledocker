@@ -2,6 +2,8 @@
 cd /docker/config
 sudo docker-compose pull
 sudo chmod 777 /docker/config/
+sudo rm docker-compose.yml
+mv docker-compose_script.yml docker-compose.yml
 sudo docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgres > initdb.sql
 sudo chmod 755 /docker/config/
 sudo mkdir /docker/guacamole
