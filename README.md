@@ -21,4 +21,11 @@
 20. first login credentials are username and password "guacadmin"  
   
   
-i will provide a script witch did the manual stepps above in the future.  
+i will provide a script witch did the manual stepps above in the future.    
+  
+#Install via Script  (work in progress)
+1. install Docker: https://docs.docker.com/engine/install/  
+2. install Docker Compose https://docs.docker.com/compose/install/  
+3. clone reposetory: "sudo mkdir /docker && sudo mkdir /docker/config && sudo git clone https://github.com/matzeeg3/guacamoledocker.git /docker/config/"  
+4. make script executable: "sudo chmod +x /docker/config/guacinstall.sh  
+5. execute script "
