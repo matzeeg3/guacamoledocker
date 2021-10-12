@@ -26,11 +26,10 @@ i will provide a script witch did the manual stepps above in the future.
 #Install via Script
 1. install Docker: https://docs.docker.com/engine/install/  
 2. install Docker Compose https://docs.docker.com/compose/install/  
-3. clone reposetory: "sudo mkdir /docker && sudo mkdir /docker/config && sudo git clone https://github.com/matzeeg3/guacamoledocker.git /docker/config/ && sudo chmod +x /docker/config/guacinstall.sh"  
-4. execute script "sudo /docker/config/guacinstall.sh"
-5. edit the compose file: "sudo nano docker-compose.yml" -> change the Password fields, the Virtual_host, your email adress and the lets encrypt host  
-6. Make sure your sub-domain points to the PublicIP of the docker host  
-7. Make sure you have open port 80 and 443 to the docker host  
-8. inside of the directory /docker/config now just run "sudo docker-compose up -d"  
-9. wait approx 5 mins if you did anything right you should be able to access "https://sub.domain.yours/guacamole  
-10. first login credentials are username and password "guacadmin"  
+3. clone reposetory and run script: "sudo mkdir /docker && sudo mkdir /docker/config && sudo git clone https://github.com/matzeeg3/guacamoledocker.git /docker/config/ && sudo chmod +x /docker/config/guacinstall.sh && sudo /docker/config/guacinstall.sh"  
+1. edit the compose file: "sudo nano docker-compose.yml" -> change the Password fields, the Virtual_host, your email adress and the lets encrypt host  
+2. Make sure your sub-domain points to the PublicIP of the docker host  
+3. Make sure you have open port 80 and 443 to the docker host  
+4. inside of the directory /docker/config now just run "sudo docker-compose up -d"  
+5. wait approx 5 mins if you did anything right you should be able to access "https://sub.domain.yours/guacamole  
+6.  first login credentials are username and password "guacadmin"  
