@@ -9,12 +9,12 @@ sudo mkdir /docker/guacamole
 sudo mkdir /docker/guacamole/postgre
 sudo mkdir /docker/guacamole/postgre/init
 sudo cp initdb.sql /docker/guacamole/postgre/init/
-sudo echo Please enter a new password:
-sudo read -p 'Password: ' PW
-sudo echo Please enter default Mail adress
-sudo read -p 'E-Mail: ' mail
-sudo echo "Please enter guacamole sub domain (eg: sub.domain.yours)"
-sudo read -p "FQDN:" sub
+echo Please enter a new password:
+read -p 'Password: ' PW
+echo Please enter default Mail adress
+read -p 'E-Mail: ' mail
+echo "Please enter guacamole sub domain (eg: sub.domain.yours)"
+read -p "FQDN:" sub
 sudo echo mail=$mail > .env
 sudo echo PW=$PW >> .env
 sudo echo sub=$sub >> .env
