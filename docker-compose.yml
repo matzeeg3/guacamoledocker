@@ -16,7 +16,6 @@ services:
      - /docker/nginxproxy/data/vhosts:/etc/nginx/vhost.d
      - /docker/nginxproxy/data/html:/usr/share/nginx/html
      - /var/run/docker.sock:/tmp/docker.sock:ro
-     - /dockerconfig/config/proxy_settings.conf:/etc/nginx/conf.d/my_custom_proxy_settings.conf
     ports:
      - 80:80
      - 443:443
