@@ -28,6 +28,6 @@ i will provide a script witch did the manual stepps above in the future.
 2. install Docker Compose https://docs.docker.com/compose/install/  
 3. Make sure your sub-domain points to the PublicIP of the docker host  
 4. Make sure you have open port 80 and 443 to the docker host  
-5. clone reposetory and run script: "sudo mkdir /docker && sudo mkdir /docker/config && sudo git clone https://github.com/matzeeg3/guacamoledocker.git /docker/config/ && sudo chmod +x /docker/config/guacinstall.sh && sudo /docker/config/guacinstall.sh"  
+5. clone reposetory and run script: "sudo mkdir /docker && sudo mkdir /docker/config && sudo apt install git -y && sudo git clone https://github.com/matzeeg3/guacamoledocker.git /docker/config/ && sudo chmod +x /docker/config/guacinstall.sh && sudo /docker/config/guacinstall.sh"  
 6. wait approx 5 mins if you did anything right you should be able to access "https://sub.domain.yours/guacamole  
 7. first login credentials are username and password "guacadmin"  
