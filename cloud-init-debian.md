@@ -1,22 +1,6 @@
 #cloud-config
 
-apt:
-  sources:
-    docker.list:
-      source: deb [arch=amd64] https://download.docker.com/linux/debian $RELEASE stable
-      keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
 
-package_upgrade: true
-
-packages:
-  - apt-transport-https
-  - ca-certificates
-  - curl
-  - gnupg-agent
-  - software-properties-common
-  - docker-ce
-  - docker-ce-cli
-  - containerd.io
 
 # Enable ipv4 forwarding, required on CIS hardened machines
 write_files:
@@ -24,9 +8,50 @@ write_files:
     content: |
       net.ipv4.conf.all.forwarding=1
 
+
 # create the docker group
 groups:
   - docker
+
+
+# Install Docker, for production, consider pinning to stable versions
+runcmd:
+  - while ( fuser lock /var/lib/apt/lists/lock >/dev/null 2>&1 ); do sleep 5; done;
+  - sudo apt-get update -y
+  - sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common gpg git wget -y
+  - sudo curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+  - sudo apt-get update -y
+  - sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+  - sudo systemctl start docker
+  - sudo systemctl enable docker
+  - sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - sudo chmod +x /usr/local/bin/docker-compose
+  - sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+  - sudo mkdir /docker
+  - sudo mkdir /docker/config
+  - cd /docker/config
+  - sudo git clone https://github.com/matzeeg3/guacamoledocker.git /docker/config/
+  - sudo docker-compose pull
+  - sudo chmod 777 /docker/config/
+  - sudo rm /docker/config/docker-compose.yml
+  - mv /docker/config/docker-compose_script.yml /docker/config/docker-compose.yml
+  - sudo docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgres > initdb.sql
+  - sudo mkdir /docker/guacamole
+  - sudo mkdir /docker/guacamole/postgre
+  - sudo mkdir /docker/guacamole/postgre/init
+  - sudo cp initdb.sql /docker/guacamole/postgre/init/
+  - PW=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13)
+  - mail=matze.lingen@gmail.com
+  - sub=remote.lingen.ml
+  - sudo echo mail=$mail > /docker/config/.env
+  - sudo echo PW=$PW >> /docker/config/.env
+  - sudo echo sub=$sub >> /docker/config/.env
+  - sudo chmod 755 /docker/config/
+  - sudo docker-compose up -d
+#  - echo install finished
+#  - echo you can reach your guacamole setup here: https://${sub}/guacamole
+#  - echo Username and Password is: guacadmin
 
 # Add default auto created user to docker group
 system_info:
