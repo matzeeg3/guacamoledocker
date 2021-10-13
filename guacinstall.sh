@@ -21,3 +21,6 @@ sudo echo PW=$PW >> /docker/config/.env
 sudo echo sub=$sub >> /docker/config/.env
 sudo chmod 755 /docker/config/
 sudo docker-compose up -d
+echo install finisched
+echo you can reach your guacamole setup here: https://${sub}/guacamole
+echo Username and Password is: guacadmin
