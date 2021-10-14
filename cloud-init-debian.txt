@@ -42,8 +42,8 @@ runcmd:
   - sudo mkdir /docker/guacamole/postgre/init
   - sudo cp initdb.sql /docker/guacamole/postgre/init/
   - PW=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13)
-  - mail=matze.lingen@gmail.com
-  - sub=remote.lingen.ml
+  - mail=******
+  - sub=********
   - sudo echo mail=$mail > /docker/config/.env
   - sudo echo PW=$PW >> /docker/config/.env
   - sudo echo sub=$sub >> /docker/config/.env
