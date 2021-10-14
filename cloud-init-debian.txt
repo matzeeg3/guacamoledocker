@@ -1,7 +1,5 @@
 #cloud-config
 
-
-
 # Enable ipv4 forwarding, required on CIS hardened machines
 write_files:
   - path: /etc/sysctl.d/enabled_ipv4_forwarding.conf
@@ -17,6 +15,8 @@ groups:
 # Install Docker, for production, consider pinning to stable versions
 runcmd:
   - while ( fuser lock /var/lib/apt/lists/lock >/dev/null 2>&1 ); do sleep 5; done;
+  - echo "yourmailhere" > /tmp/mail
+  - echo "yoursubdomainhere" > /tmp/sub
   - sudo apt-get update -y
   - sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common gpg git wget -y
   - sudo curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
@@ -41,17 +41,17 @@ runcmd:
   - sudo mkdir /docker/guacamole/postgre
   - sudo mkdir /docker/guacamole/postgre/init
   - sudo cp initdb.sql /docker/guacamole/postgre/init/
-  - PW=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13)
-  - mail=******
-  - sub=********
-  - sudo echo mail=$mail > /docker/config/.env
-  - sudo echo PW=$PW >> /docker/config/.env
-  - sudo echo sub=$sub >> /docker/config/.env
+  - tr -dc A-Za-z0-9 </dev/urandom | head -c 13 >> /tmp/pw
+  - sudo chmod +x /docker/config/variable.sh
+  - sudo /docker/config/variable.sh
   - sudo chmod 755 /docker/config/
   - sudo docker-compose up -d
 #  - echo install finished
 #  - echo you can reach your guacamole setup here: https://${sub}/guacamole
 #  - echo Username and Password is: guacadmin
+
+
+
 
 # Add default auto created user to docker group
 system_info:
